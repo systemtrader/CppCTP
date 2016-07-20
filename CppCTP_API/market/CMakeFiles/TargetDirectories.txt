@@ -1,1 +1,0 @@
-/mnt/hgfs/gmqh_ctp/hello/CMakeFiles/quant_ctp_md.dir
