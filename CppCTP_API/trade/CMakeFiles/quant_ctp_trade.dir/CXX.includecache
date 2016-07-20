@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/hgfs/gmqh_ctp/world/TdSpi.h
+map
+-
+string
+-
+pthread.h
+-
+semaphore.h
+-
+unistd.h
+-
+time.h
+-
+sys/time.h
+-
+ThostFtdcTraderApi.h
+/mnt/hgfs/gmqh_ctp/world/ThostFtdcTraderApi.h
+ThostFtdcUserApiStruct.h
+/mnt/hgfs/gmqh_ctp/world/ThostFtdcUserApiStruct.h
+
+/mnt/hgfs/gmqh_ctp/world/ThostFtdcTraderApi.h
+ThostFtdcUserApiStruct.h
+/mnt/hgfs/gmqh_ctp/world/ThostFtdcUserApiStruct.h
+
+/mnt/hgfs/gmqh_ctp/world/ThostFtdcUserApiDataType.h
+
+/mnt/hgfs/gmqh_ctp/world/ThostFtdcUserApiStruct.h
+ThostFtdcUserApiDataType.h
+/mnt/hgfs/gmqh_ctp/world/ThostFtdcUserApiDataType.h
+
+/mnt/hgfs/gmqh_ctp/world/main.cpp
+iostream
+-
+ThostFtdcTraderApi.h
+/mnt/hgfs/gmqh_ctp/world/ThostFtdcTraderApi.h
+TdSpi.h
+/mnt/hgfs/gmqh_ctp/world/TdSpi.h
+
