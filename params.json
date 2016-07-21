@@ -1,0 +1,6 @@
+{
+  "name": "Cpp CTP Development",
+  "tagline": "CTP with cpp",
+  "body": "CppCTP\r\n=========  \r\n上期信息技术CTP开发(C++实现)  \r\n\r\n开发环境\r\n--------\r\n\r\n    CentOS 6.5, gcc:v4.8.0, cmake:v2.8.12.2, lang:c++  \r\n\r\n开发顺序\r\n--------  \r\n\r\n    CppCTP_API -> CppCTP_Integration -> CppCTP_SOCKET\r\n\r\n## 各个目录说明  \r\n* CppCTP_API  \r\n  * 本目录是针对CTP的API库进行的API测试，分为md(市场行情),td(交易)  \r\n* CppCTP_Integration\r\n  * 本目录是将CTP的md,td集成到一起的版本\r\n* CppCTP_SOCKET  \r\n  * 本目录是CTP实现socket通信版本  \r\n\r\n### 更新时间:2016.07.20  \r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
