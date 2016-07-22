@@ -48,3 +48,11 @@ ThostFtdcUserApiStruct.h
 ThostFtdcUserApiDataType.h
 /mnt/hgfs/gmctp/CppCTP_API/trade/ThostFtdcUserApiDataType.h
 
+/mnt/hgfs/gmctp/CppCTP_API/trade/main.cpp
+iostream
+-
+ThostFtdcTraderApi.h
+/mnt/hgfs/gmctp/CppCTP_API/trade/ThostFtdcTraderApi.h
+TdSpi.h
+/mnt/hgfs/gmctp/CppCTP_API/trade/TdSpi.h
+
