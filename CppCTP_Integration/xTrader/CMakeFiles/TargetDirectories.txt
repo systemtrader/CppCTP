@@ -1,0 +1,1 @@
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/CMakeFiles/quant_ctp_XTrader.dir
