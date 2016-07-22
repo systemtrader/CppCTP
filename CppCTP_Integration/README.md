@@ -1,6 +1,16 @@
-# CppCTP
-CTP with cpp
+# CppCTP_Integration
+实现ctp多账户交易
 
-##hello, ywy
+# 开发环境
+    CentOS 6.5, gcc:v4.8.0, cmake:v2.8.12.2, lang:c++
 
-## ywy 2016年7月19日16:46:02
+## 编译方法
+```c++
+cmake .
+make
+```
+
+##  执行
+```c++
+./quant_ctp_XTrader
+```

@@ -6,6 +6,26 @@
 
 #IncludeRegexTransform: 
 
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/MdSpi.h
+map
+-
+string
+-
+pthread.h
+-
+semaphore.h
+-
+unistd.h
+-
+time.h
+-
+sys/time.h
+-
+ThostFtdcMdApi.h
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcMdApi.h
+ThostFtdcUserApiStruct.h
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcUserApiStruct.h
+
 /mnt/hgfs/gmctp/CppCTP_Integration/xTrader/TdSpi.cpp
 iostream
 -
@@ -38,6 +58,10 @@ ThostFtdcTraderApi.h
 ThostFtdcUserApiStruct.h
 /mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcUserApiStruct.h
 
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcMdApi.h
+ThostFtdcUserApiStruct.h
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcUserApiStruct.h
+
 /mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcTraderApi.h
 ThostFtdcUserApiStruct.h
 /mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcUserApiStruct.h
@@ -47,4 +71,18 @@ ThostFtdcUserApiStruct.h
 /mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcUserApiStruct.h
 ThostFtdcUserApiDataType.h
 /mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcUserApiDataType.h
+
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/main.cpp
+iostream
+-
+string.h
+-
+ThostFtdcTraderApi.h
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcTraderApi.h
+TdSpi.h
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/TdSpi.h
+ThostFtdcMdApi.h
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/ThostFtdcMdApi.h
+MdSpi.h
+/mnt/hgfs/gmctp/CppCTP_Integration/xTrader/MdSpi.h
 

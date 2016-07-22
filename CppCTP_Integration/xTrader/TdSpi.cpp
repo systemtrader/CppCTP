@@ -1528,4 +1528,9 @@ bool TdSpi::getIsConfirmSettlement() {
 void TdSpi::Release() {
 	USER_PRINT("TdSpi::Release")
 	//this->tdapi->Release();
+	if (this->tdapi) {
+		this->tdapi->RegisterSpi(NULL);
+		this->tdapi->Release();
+		this->tdapi = NULL;
+	}
 }

@@ -549,5 +549,7 @@ int main() {
 	//tdspi->Join();
 	//sleep(1);
 	tdspi->Release();
+	delete tdspi;
+	tdspi = NULL;
 	return 0;
 }
