@@ -91,6 +91,9 @@ public:
 	//响应查询合约
 	void OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 
+	///合约交易状态通知
+	void OnRtnInstrumentStatus(CThostFtdcInstrumentStatusField *pInstrumentStatus);
+
 	//查询报单
 	void QryOrder();
 
@@ -189,12 +192,19 @@ public:
 	//释放api
 	void Release();
 
+	//设置isConfirmSettlement
+	void setIsConfirmSettlement(bool isConfirmSettlement);
+
+	//得到isConfirmSettlement
+	bool getIsConfirmSettlement();
+
 private:
     CThostFtdcTraderApi *tdapi;
     CThostFtdcReqUserLoginField *loginField;
     CThostFtdcReqAuthenticateField *authField;
 	bool isLogged;
 	bool isFirstTimeLogged;
+	bool isConfirmSettlement;
 	int loginRequestID;
 	string BrokerID;
 	string UserID;

@@ -51,7 +51,19 @@ void printContinueEN() {
 }
 
 int main() {
-	CThostFtdcTraderApi *tdapi = CThostFtdcTraderApi::CreateFtdcTraderApi("/home/quant/Desktop/demo2/");
+
+	string frontAddr = "tcp://180.168.146.187:10000"; //仿真
+	string broker_id = "9999";
+	string user_id = "058176";
+	string password = "669822";
+
+	//string frontAddr = "tcp://180.169.75.19:41205"; //实盘
+	//string broker_id = "0187";
+	//string user_id = "86001525";
+	//string password = "206029";
+
+
+	CThostFtdcTraderApi *tdapi = CThostFtdcTraderApi::CreateFtdcTraderApi("./conn/user1/");
 	TdSpi *tdspi = new TdSpi(tdapi);
 
 	//注册前置机
@@ -69,10 +81,10 @@ int main() {
 	 实盘账号：86001525/206029
 	 */
 
-	tdspi->Connect("tcp://180.168.146.187:10000"); //仿真
+	tdspi->Connect(const_cast<char *>(frontAddr.c_str())); //仿真
 	//tdspi->Connect("tcp://180.168.146.187:10030"); //24H
 	sleep(1);
-	tdspi->Login("9999", "058176", "669822");
+	tdspi->Login(const_cast<char *>(broker_id.c_str()), const_cast<char *>(user_id.c_str()), const_cast<char *>(password.c_str()));
 
 	//sleep(2);
 	//tdspi->Login("9999", "063802", "123456");
@@ -91,7 +103,7 @@ int main() {
 	//查询交易结算确认
 	tdspi->QrySettlementInfoConfirm(const_cast<char *>(tdspi->getBrokerID().c_str()), const_cast<char *>(tdspi->getUserID().c_str()), tdspi->getRequestID());
 	//查询交易所
-	sleep(4);
+	sleep(6);
 	//tdspi->QryExchange();
 	//查询合约
 	//sleep(1);

@@ -7,7 +7,7 @@
 using namespace std;
 using std::string;
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
 #define USER_PRINT(x) std::cout << "DEBUG - " << __DATE__ << ", " << __TIME__<< ", " << __FILE__ << ", Line - " << __LINE__ << endl; std::cout << #x << " = " << x << std::endl;
 #else
@@ -69,6 +69,7 @@ TdSpi::TdSpi(CThostFtdcTraderApi *tdapi) {
 	this->isFirstTimeLogged = true;
 	this->loginRequestID = 10;
     this->tdapi = tdapi;
+	this->isConfirmSettlement = false;
 }
 
 //建立连接
@@ -186,13 +187,22 @@ void TdSpi::QrySettlementInfoConfirm(char *BrokerID, char *InvestorID, int nRequ
 //请求查询结算信息确认响应
 void TdSpi::OnRspQrySettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm,
                                           CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
-	USER_PRINT("TdSpi::OnRspQrySettlementInfoConfirm")
-
+	USER_PRINT("TdSpi::OnRspQrySettlementInfoConfirm");
+	USER_PRINT(bIsLast)
 	if (!(this->IsErrorRspInfo(pRspInfo))) {
 		//sem_post(&sem_ReqQrySettlementInfoConfirm);
-		if (!pSettlementInfoConfirm) { //如果未确认过，pSettlementInfoConfirm为空
-			USER_PRINT("Not Confirm, Begin to QrySettlementInfo!");
-			this->QrySettlementInfo(const_cast<char *>(this->getBrokerID().c_str()), const_cast<char *>(this->getUserID().c_str()), this->getRequestID());
+		if ((!pSettlementInfoConfirm)) { //如果未确认过，pSettlementInfoConfirm为空
+			USER_PRINT("pSettlementInfoConfirm is null");
+			if (this->getIsConfirmSettlement()) {
+				USER_PRINT("Already Confirm!");
+				cout << "|==确认结算信息==|" << endl;
+				cout << "|确认日期" << this->getCharTradingDate() << "|" << endl;
+				cout << "|交易时间" << this->tdapi->GetTradingDay() << "|" << endl;
+				cout << "|================|" << endl;
+			}
+			else {
+				this->QrySettlementInfo(const_cast<char *>(this->getBrokerID().c_str()), const_cast<char *>(this->getUserID().c_str()), this->getRequestID());
+			}
 		} else {
 			USER_PRINT("Already Confirm!")
 			cout << "|==确认结算信息==|" << endl;
@@ -318,6 +328,7 @@ void TdSpi::ConfirmSettlementInfo(char *BrokerID, char *InvestorID, char *Tradin
 
 	strcpy(pSettlementInfoConfirm->BrokerID, BrokerID);
 	strcpy(pSettlementInfoConfirm->InvestorID, InvestorID);
+	cout << this->getCharTradingDate() << endl;
 	strcpy(pSettlementInfoConfirm->ConfirmDate, this->getCharTradingDate());
 
 	sleep(1);
@@ -333,7 +344,8 @@ void TdSpi::ConfirmSettlementInfo(char *BrokerID, char *InvestorID, char *Tradin
 //投资者结算结果确认响应
 void TdSpi::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm,
                                        CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
-	USER_PRINT("TdSpi::OnRspSettlementInfoConfirm")
+	USER_PRINT("TdSpi::OnRspSettlementInfoConfirm");
+	USER_PRINT(bIsLast);
 	if (!(this->IsErrorRspInfo(pRspInfo))) {
 		//sem_post(&sem_ReqSettlementInfoConfirm);
 		if (pSettlementInfoConfirm) {
@@ -345,6 +357,18 @@ void TdSpi::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSe
 			cout << "确认日期" << pSettlementInfoConfirm->ConfirmDate << endl;
 			///确认时间
 			cout << "确认时间" << pSettlementInfoConfirm->ConfirmTime << endl;
+			string today_date = this->tdapi->GetTradingDay();
+			string confirm_date = pSettlementInfoConfirm->ConfirmDate;
+			USER_PRINT(today_date);
+			USER_PRINT(confirm_date);
+			if (today_date == confirm_date) {
+				USER_PRINT("today_date == confirm_date");
+				this->setIsConfirmSettlement(true);
+			}
+			else {
+				USER_PRINT("today_date != confirm_date");
+				this->setIsConfirmSettlement(false);
+			}
 		}
 	}
 	if (bIsLast) {
@@ -354,7 +378,7 @@ void TdSpi::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSe
 
 //查询交易所
 void TdSpi::QryExchange() {
-	USER_PRINT("TdSpi::QryExchange")
+	USER_PRINT("TdSpi::QryExchange");
 	CThostFtdcQryExchangeField *pQryExchange = new CThostFtdcQryExchangeField();
 	strcpy(pQryExchange->ExchangeID, "");
 	this->tdapi->ReqQryExchange(pQryExchange, this->loginRequestID);
@@ -453,6 +477,29 @@ void TdSpi::OnRspQryInstrument(CThostFtdcInstrumentField *pInstrument, CThostFtd
 		cout << "合约基础商品乘数" << pInstrument->UnderlyingMultiple << endl;
 		///组合类型
 		cout << "组合类型" << pInstrument->CombinationType << endl;*/
+	}
+}
+
+///合约交易状态通知
+void TdSpi::OnRtnInstrumentStatus(CThostFtdcInstrumentStatusField *pInstrumentStatus) {
+	USER_PRINT("TdSpi::OnRtnInstrumentStatus");
+	if (pInstrumentStatus) {
+		///交易所代码
+		cout << "交易所代码" << pInstrumentStatus->ExchangeID << endl;
+		///合约在交易所的代码
+		cout << "合约在交易所的代码" << pInstrumentStatus->ExchangeInstID << endl;
+		///结算组代码
+		cout << "结算组代码" << pInstrumentStatus->SettlementGroupID << endl;
+		///合约代码
+		cout << "合约代码" << pInstrumentStatus->InstrumentID << endl;
+		///合约交易状态
+		cout << "合约交易状态" << pInstrumentStatus->InstrumentStatus << endl;
+		///交易阶段编号
+		cout << "交易阶段编号" << pInstrumentStatus->TradingSegmentSN << endl;
+		///进入本状态时间
+		cout << "进入本状态时间" << pInstrumentStatus->EnterTime << endl;
+		///进入本状态原因
+		cout << "进入本状态原因" << pInstrumentStatus->EnterReason << endl;
 	}
 }
 
@@ -1465,6 +1512,16 @@ int TdSpi::getRequestID() {
 //得到交易日期
 char * TdSpi::getCharTradingDate() {
 	return (const_cast<char *> (this->tdapi->GetTradingDay()));
+}
+
+//设置isConfirmSettlement
+void TdSpi::setIsConfirmSettlement(bool isConfirmSettlement) {
+	this->isConfirmSettlement = isConfirmSettlement;
+}
+
+//得到isConfirmSettlement
+bool TdSpi::getIsConfirmSettlement() {
+	return this->isConfirmSettlement;
 }
 
 //释放api
