@@ -1,1 +1,0 @@
-/mnt/hgfs/gmctp/CppCTP_API/trade/CMakeFiles/quant_ctp_trade.dir

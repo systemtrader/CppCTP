@@ -52,12 +52,13 @@ void printContinueEN() {
 
 int main() {
 
-	string frontAddr = "tcp://180.168.146.187:10000"; //仿真
+	string frontAddr = "tcp://180.168.146.187:10000"; //实盘仿真
+	//string frontAddr = "tcp://180.168.146.187:10030"; //24H
 	string broker_id = "9999";
 	string user_id = "058176";
 	string password = "669822";
 
-	//string frontAddr = "tcp://180.169.75.19:41205"; //实盘
+	//string frontAddr = "tcp://220.248.44.146:41205"; //实盘
 	//string broker_id = "0187";
 	//string user_id = "86001525";
 	//string password = "206029";
