@@ -991,6 +991,75 @@ void TdSpi::QryTrade() {
 	delete pQryTrade;
 }
 
+//成交通知
+void TdSpi::OnRtnTrade(CThostFtdcTradeField *pTrade) {
+	USER_PRINT("TdSpi::OnRtnTrade");
+	if (pTrade) {
+		cout << "=================================================================================" << endl;
+		///经纪公司代码
+		cout << "||经纪公司代码" << pTrade->BrokerID << ", "
+		///投资者代码
+		cout << "投资者代码" << pTrade->InvestorID << ", "
+		///合约代码
+		cout << "合约代码" << pTrade->InstrumentID << ", "
+		///报单引用
+		cout << "报单引用" << pTrade->OrderRef << ", "
+		///用户代码
+		cout << "用户代码" << pTrade->UserID << endl;
+		///交易所代码
+		cout << "||交易所代码" << pTrade->ExchangeID << ", "
+		///成交编号
+		cout << "成交编号" << pTrade->TradeID << ", "
+		///买卖方向
+		cout << "买卖方向" << pTrade->Direction << ", "
+		///报单编号
+		cout << "报单编号" << pTrade->OrderSysID << ", "
+		///会员代码
+		cout << "会员代码" << pTrade->ParticipantID << endl;
+		///客户代码
+		cout << "||客户代码" << pTrade->ClientID << ", "
+		///交易角色
+		cout << "交易角色" << pTrade->TradingRole << ", "
+		///合约在交易所的代码
+		cout << "合约在交易所的代码" << pTrade->ExchangeInstID << ", "
+		///开平标志
+		cout << "开平标志" << pTrade->OffsetFlag << ", "
+		///投机套保标志
+		cout << "投机套保标志" << pTrade->HedgeFlag << endl;
+		///价格
+		cout << "||价格" << pTrade->Price << ", "
+		///数量
+		cout << "数量" << pTrade->Volume << ", "
+		///成交时期
+		cout << "成交时期" << pTrade->TradeDate << ", "
+		///成交时间
+		cout << "成交时间" << pTrade->TradeTime << ", "
+		///成交类型
+		cout << "成交类型" << pTrade->TradeType << endl;
+		///成交价来源
+		cout << "||成交价来源" << pTrade->PriceSource << ", "
+		///交易所交易员代码
+		cout << "交易所交易员代码" << pTrade->TraderID << ", "
+		///本地报单编号
+		cout << "本地报单编号" << pTrade->OrderLocalID << ", "
+		///结算会员编号
+		cout << "结算会员编号" << pTrade->ClearingPartID << endl;
+		///业务单元
+		cout << "||业务单元" << pTrade->BusinessUnit << ", "
+		///序号
+		cout << "序号" << pTrade->SequenceNo << ", "
+		///交易日
+		cout << "交易日" << pTrade->TradingDay << ", "
+		///结算编号
+		cout << "结算编号" << pTrade->SettlementID << endl;
+		///经纪公司报单编号
+		cout << "||经纪公司报单编号" << pTrade->BrokerOrderSeq << ", "
+		///成交来源
+		cout << "成交来源" << pTrade->TradeSource << endl;
+		cout << "=================================================================================" << endl;
+	}
+}
+
 //查询成交单响应
 void TdSpi::OnRspQryTrade(CThostFtdcTradeField *pTrade, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
 	USER_PRINT("TdSpi::OnRspQryTrade");

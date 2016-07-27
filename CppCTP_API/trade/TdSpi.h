@@ -135,6 +135,9 @@ public:
 
 	//查询成交单
 	void QryTrade();
+	
+	//成交通知
+	void OnRtnTrade(CThostFtdcTradeField *pTrade);
 
 	//查询成交单响应
 	void OnRspQryTrade(CThostFtdcTradeField *pTrade, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
